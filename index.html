@@ -216,6 +216,12 @@
 
     .repeat-badge { font-size: 0.62rem; color: var(--accent); flex-shrink: 0; }
 
+    /* ── 알람 배지 ── */
+    .alarm-badge {
+      font-size: 0.62rem; color: var(--green); flex-shrink: 0;
+      display: flex; align-items: center; gap: 2px;
+    }
+
     .expand-btn {
       background: none; border: none; color: var(--t2); font-size: 0.65rem;
       cursor: pointer; padding: 3px 4px; border-radius: 4px;
@@ -239,7 +245,7 @@
     .hov-btn.del:hover  { color: var(--danger); background: var(--danger-bg); }
     .hov-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-    /* ── Expanded section (subtasks + note + links) ── */
+    /* ── Expanded section ── */
     .expand-section { border-top: 1px solid var(--border); }
 
     .subtask-section {
@@ -283,7 +289,7 @@
     }
     .subtask-add-btn:hover { opacity: 0.75; }
 
-    /* Note & Links */
+    /* Note & Links & Alarm */
     .detail-section {
       padding: 10px 12px 12px 50px; background: var(--surface-2);
       border-top: 1px dashed var(--border); border-radius: 0 0 11px 11px;
@@ -327,6 +333,22 @@
       cursor: pointer; white-space: nowrap; transition: all 0.15s;
     }
     .link-add-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* 알람 편집 행 (detail section) */
+    .alarm-row {
+      display: flex; align-items: center; gap: 8px; margin-top: 10px; padding-top: 10px;
+      border-top: 1px dashed var(--border);
+    }
+    .alarm-time-input {
+      padding: 5px 9px; background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--r-sm); font-size: 0.79rem; color: var(--t1); outline: none; cursor: pointer;
+    }
+    .alarm-time-input:focus { border-color: var(--green); }
+    .alarm-clear-btn {
+      padding: 5px 9px; background: none; border: 1.5px solid var(--border);
+      border-radius: var(--r-sm); color: var(--t2); font-size: 0.75rem; cursor: pointer; transition: all 0.15s;
+    }
+    .alarm-clear-btn:hover { border-color: var(--danger); color: var(--danger); }
 
     .empty { text-align: center; color: var(--t2); font-size: 0.87rem; padding: 36px 0; }
     .clear-done {
@@ -408,6 +430,35 @@
     .heatmap-day-label { font-size: 0.6rem; color: var(--t2); height: 12px; line-height: 12px; }
     .heatmap-wrap { display: flex; align-items: flex-start; overflow-x: auto; padding-bottom: 4px; }
 
+    /* ── AI 요약 모달 ── */
+    .summary-overview {
+      padding: 13px 14px; background: var(--accent-bg); border: 1px solid rgba(99,102,241,0.2);
+      border-radius: var(--r-sm); font-size: 0.87rem; color: var(--t3); line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .summary-section { margin-bottom: 14px; }
+    .summary-section-title {
+      font-size: 0.72rem; font-weight: 700; color: var(--t2);
+      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 7px;
+    }
+    .summary-item {
+      display: flex; align-items: flex-start; gap: 9px; padding: 9px 12px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); margin-bottom: 5px;
+    }
+    .summary-item-icon { font-size: 0.95rem; flex-shrink: 0; margin-top: 1px; }
+    .summary-item-text { font-size: 0.84rem; color: var(--t1); line-height: 1.45; }
+    .summary-item-sub { font-size: 0.74rem; color: var(--t2); margin-top: 2px; }
+    .summary-tip {
+      padding: 10px 13px; background: var(--warn-bg); border: 1px solid rgba(245,158,11,0.22);
+      border-radius: var(--r-sm); font-size: 0.8rem; color: var(--warn); line-height: 1.5;
+    }
+    .summary-encouragement {
+      margin-top: 10px; padding: 10px 13px; background: var(--green-bg);
+      border: 1px solid rgba(16,185,129,0.2); border-radius: var(--r-sm);
+      font-size: 0.82rem; color: var(--green); line-height: 1.5; text-align: center; font-weight: 600;
+    }
+
     /* ── Spinner / Toast / Modals ── */
     @keyframes spin { to { transform: rotate(360deg); } }
     .spinning { display: inline-block; animation: spin 0.7s linear infinite; }
@@ -420,6 +471,7 @@
     .modal-card {
       width: 100%; max-width: 460px; background: var(--surface); border: 1px solid var(--border);
       border-radius: 16px; box-shadow: var(--sh-md); padding: 22px; animation: modalIn 0.18s ease;
+      max-height: 85vh; overflow-y: auto;
     }
     @keyframes modalIn { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }
     .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
@@ -447,6 +499,13 @@
     .btn-primary:hover { opacity: 0.88; }
     .btn-ghost { width: 100%; padding: 8px; margin-top: 6px; background: none; border: 1.5px solid var(--border); border-radius: var(--r-sm); color: var(--t2); font-size: 0.81rem; cursor: pointer; transition: all 0.15s; }
     .btn-ghost:hover { border-color: var(--danger); color: var(--danger); }
+    .btn-notif {
+      width: 100%; padding: 8px; margin-top: 6px; background: var(--green-bg);
+      border: 1.5px solid rgba(16,185,129,0.3); border-radius: var(--r-sm);
+      color: var(--green); font-size: 0.81rem; cursor: pointer; transition: all 0.15s;
+    }
+    .btn-notif:hover { opacity: 0.8; }
+    .notif-status { font-size: 0.73rem; color: var(--t2); margin-top: 5px; padding: 6px 9px; background: var(--surface-2); border-radius: var(--r-sm); }
 
     .coach-summary { font-size: 0.85rem; color: var(--t3); line-height: 1.55; margin-bottom: 13px; padding: 11px 12px; background: var(--surface-2); border-radius: var(--r-sm); border: 1px solid var(--border); }
     .coach-list { display: flex; flex-direction: column; gap: 7px; max-height: 300px; overflow-y: auto; }
@@ -475,6 +534,7 @@
         <p class="header-date" id="header-date"></p>
       </div>
       <div class="header-actions">
+        <button class="icon-btn" id="summary-btn" title="AI 요약">📋</button>
         <button class="icon-btn" id="stats-btn" title="완료 통계">📊</button>
         <button class="icon-btn" id="focus-btn" title="AI 집중 추천">🎯</button>
         <button class="icon-btn" id="settings-btn" title="설정">⚙️</button>
@@ -490,7 +550,7 @@
       </div>
       <div class="options-toggle">
         <button class="options-toggle-btn" id="toggle-options">
-          <span class="chevron">›</span> 태그 · 날짜 · 반복 설정
+          <span class="chevron">›</span> 태그 · 날짜 · 반복 · 알람 설정
         </button>
       </div>
       <div class="options-body" id="options-body">
@@ -502,6 +562,11 @@
         <div class="options-row">
           <span class="opt-label">반복</span>
           <div class="repeat-pills" id="repeat-pills-input"></div>
+        </div>
+        <div class="options-row">
+          <span class="opt-label">🔔 알람</span>
+          <input type="time" class="date-input" id="alarm-input" />
+          <span style="font-size:0.72rem;color:var(--t2);">매일 해당 시간에 알림</span>
         </div>
       </div>
     </div>
@@ -546,6 +611,17 @@
     </div>
   </div>
 
+  <!-- AI 요약 모달 -->
+  <div class="modal-overlay" id="summary-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span class="modal-title">📋 AI 할 일 요약</span>
+        <button class="modal-close" id="close-summary">×</button>
+      </div>
+      <div id="summary-content"></div>
+    </div>
+  </div>
+
   <!-- 통계 모달 -->
   <div class="modal-overlay" id="stats-overlay">
     <div class="modal-card">
@@ -572,6 +648,11 @@
       </p>
       <button class="btn-primary" id="save-api-key">저장</button>
       <button class="btn-ghost" id="clear-api-key">API 키 삭제</button>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border)">
+        <label class="settings-label">🔔 알람 알림 권한</label>
+        <button class="btn-notif" id="req-notif-btn">브라우저 알림 권한 허용</button>
+        <div class="notif-status" id="notif-status"></div>
+      </div>
     </div>
   </div>
 
@@ -592,6 +673,7 @@
     const THEME_KEY = 'todo_theme';
     const API_KEY_KEY = 'claude_api_key';
     const HISTORY_KEY = 'completion_history';
+    const ALARM_FIRED_KEY = 'alarm_fired';
     const POMO_TOTAL = 25 * 60;
 
     let todos = JSON.parse(localStorage.getItem(KEY) || '[]');
@@ -668,6 +750,7 @@
         dueDate: getNextDate(todo.dueDate, todo.repeat),
         tags: [...(todo.tags||[])], subtasks: [],
         repeat: todo.repeat, note: todo.note||'', links: [...(todo.links||[])],
+        alarmTime: todo.alarmTime || null,
       });
     }
 
@@ -701,12 +784,63 @@
     }
     const extractJSON = t => { const m=t.match(/```(?:json)?\s*([\s\S]*?)```/)||t.match(/(\{[\s\S]*\})/); return m?m[1].trim():t.trim(); };
 
+    // ── 알람 ──
+    function getFiredAlarms() {
+      return JSON.parse(localStorage.getItem(ALARM_FIRED_KEY)||'{}');
+    }
+    function markAlarmFired(todoId, dateKey) {
+      const fired = getFiredAlarms();
+      fired[`${todoId}-${dateKey}`] = true;
+      localStorage.setItem(ALARM_FIRED_KEY, JSON.stringify(fired));
+    }
+    function getNotifPermission() {
+      if (!('Notification' in window)) return 'unsupported';
+      return Notification.permission;
+    }
+    async function requestNotificationPermission() {
+      if (!('Notification' in window)) { showToast('이 브라우저는 알림을 지원하지 않아요'); return; }
+      const perm = await Notification.requestPermission();
+      updateNotifStatus();
+      showToast(perm==='granted' ? '🔔 알림이 허용됐어요!' : '알림이 거부됐어요. 브라우저 설정에서 허용해주세요.');
+    }
+    function updateNotifStatus() {
+      const el = document.getElementById('notif-status');
+      if (!el) return;
+      const p = getNotifPermission();
+      el.textContent = p==='granted' ? '✓ 알림 허용됨 — 알람 기능이 활성화됩니다'
+                     : p==='denied'  ? '✗ 알림 거부됨 — 브라우저 설정에서 허용해주세요'
+                     : p==='unsupported' ? '이 브라우저는 알림을 지원하지 않습니다'
+                     : '알림 권한이 설정되지 않았어요';
+    }
+    function checkAlarms() {
+      const now = new Date();
+      const todayStr = now.toISOString().split('T')[0];
+      const hh = String(now.getHours()).padStart(2,'0');
+      const mm = String(now.getMinutes()).padStart(2,'0');
+      const currentTime = `${hh}:${mm}`;
+      const fired = getFiredAlarms();
+      todos.forEach(todo => {
+        if (todo.done || !todo.alarmTime) return;
+        const key = `${todo.id}-${todayStr}-${todo.alarmTime}`;
+        if (fired[key]) return;
+        if (todo.alarmTime === currentTime) {
+          markAlarmFired(todo.id, `${todayStr}-${todo.alarmTime}`);
+          if (getNotifPermission() === 'granted') {
+            new Notification('🔔 할 일 알람', { body: todo.text, icon: '' });
+          }
+          showToast(`🔔 알람: ${todo.text}`);
+        }
+      });
+    }
+    setInterval(checkAlarms, 30000);
+
     // ── 설정 ──
     function openSettings() {
       const key = localStorage.getItem(API_KEY_KEY)||'';
       document.getElementById('api-status-el').innerHTML = key
         ? `<div class="api-status ok">✓ API 키 설정됨 — AI 기능 활성화</div>`
         : `<div class="api-status none">✗ API 키 없음 — AI 기능 비활성화</div>`;
+      updateNotifStatus();
       document.getElementById('settings-overlay').classList.add('open');
     }
     document.getElementById('settings-btn').addEventListener('click', openSettings);
@@ -718,6 +852,84 @@
       showToast('✓ API 키가 저장됐어요'); openSettings();
     });
     document.getElementById('clear-api-key').addEventListener('click',()=>{ localStorage.removeItem(API_KEY_KEY); showToast('API 키가 삭제됐어요'); openSettings(); });
+    document.getElementById('req-notif-btn').addEventListener('click', requestNotificationPermission);
+
+    // ── AI: 요약 ──
+    document.getElementById('summary-btn').addEventListener('click', async () => {
+      const overlay = document.getElementById('summary-overlay');
+      const content = document.getElementById('summary-content');
+      overlay.classList.add('open');
+      content.innerHTML = '<div class="coach-loading"><span class="spinning">✨</span>요약 중이에요...</div>';
+
+      const active = todos.filter(t => !t.done);
+      const doneCount = todos.filter(t => t.done).length;
+      const today = new Date().toISOString().split('T')[0];
+
+      if (!todos.length) {
+        content.innerHTML = '<div class="coach-loading">📭 할 일이 없어요. 새 항목을 추가해보세요!</div>';
+        return;
+      }
+      try {
+        const result = await callClaude(`할 일 앱의 현재 상태를 분석하고 한국어로 요약해주세요.
+ONLY valid JSON (no markdown):
+{
+  "overview": "전체 상황 요약 2문장",
+  "urgent": [{"text":"긴급 항목 텍스트","reason":"이유"}],
+  "in_progress": [{"text":"진행 항목 텍스트","note":"짧은 메모"}],
+  "suggestion": "생산성 팁 1-2문장",
+  "encouragement": "격려 메시지 1문장"
+}
+오늘: ${today} | 완료: ${doneCount}개
+진행 중 (${active.length}개): ${JSON.stringify(active.map(t=>({text:t.text,dueDate:t.dueDate||null,tags:t.tags||[],subtasks:(t.subtasks||[]).length})))}`, '', 1400);
+
+        if (!result) return;
+        const p = JSON.parse(extractJSON(result));
+        content.innerHTML = '';
+
+        if (p.overview) {
+          const el = document.createElement('div');
+          el.className = 'summary-overview';
+          el.textContent = p.overview;
+          content.appendChild(el);
+        }
+        if (p.urgent?.length) {
+          const sec = document.createElement('div'); sec.className = 'summary-section';
+          const title = document.createElement('div'); title.className = 'summary-section-title'; title.textContent = '🚨 긴급 처리 필요';
+          sec.appendChild(title);
+          p.urgent.forEach(item => {
+            const el = document.createElement('div'); el.className = 'summary-item';
+            el.innerHTML = `<div class="summary-item-icon">⚡</div><div><div class="summary-item-text">${item.text}</div><div class="summary-item-sub">${item.reason||''}</div></div>`;
+            sec.appendChild(el);
+          });
+          content.appendChild(sec);
+        }
+        if (p.in_progress?.length) {
+          const sec = document.createElement('div'); sec.className = 'summary-section';
+          const title = document.createElement('div'); title.className = 'summary-section-title'; title.textContent = '📌 진행 중인 항목';
+          sec.appendChild(title);
+          p.in_progress.forEach(item => {
+            const el = document.createElement('div'); el.className = 'summary-item';
+            el.innerHTML = `<div class="summary-item-icon">▸</div><div><div class="summary-item-text">${item.text}</div>${item.note?`<div class="summary-item-sub">${item.note}</div>`:''}</div>`;
+            sec.appendChild(el);
+          });
+          content.appendChild(sec);
+        }
+        if (p.suggestion) {
+          const el = document.createElement('div'); el.className = 'summary-tip';
+          el.textContent = `💡 ${p.suggestion}`;
+          content.appendChild(el);
+        }
+        if (p.encouragement) {
+          const el = document.createElement('div'); el.className = 'summary-encouragement';
+          el.textContent = `🌟 ${p.encouragement}`;
+          content.appendChild(el);
+        }
+      } catch(e) {
+        content.innerHTML = `<div class="coach-loading" style="color:var(--danger)">오류: ${e.message}</div>`;
+      }
+    });
+    document.getElementById('close-summary').addEventListener('click',()=>document.getElementById('summary-overlay').classList.remove('open'));
+    document.getElementById('summary-overlay').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('open');});
 
     // ── AI: 자연어 파싱 ──
     document.getElementById('ai-parse-btn').addEventListener('click', async()=>{
@@ -812,7 +1024,6 @@ ONLY valid JSON: {"tags":[]} 할 일: "${todo.text}"`);
       let todayC=h[todayStr]||0,weekC=0,monthC=0,totalC=0;
       Object.entries(h).forEach(([d,c])=>{const dt=new Date(d+'T00:00:00');if(dt>=mon)weekC+=c;if(dt>=monthStart)monthC+=c;totalC+=c;});
 
-      // heatmap
       const cells=[];
       const start=new Date();start.setHours(0,0,0,0);start.setDate(start.getDate()-90);
       const sdow=start.getDay();start.setDate(start.getDate()-(sdow===0?6:sdow-1));
@@ -994,6 +1205,10 @@ ONLY valid JSON: {"tags":[]} 할 일: "${todo.text}"`);
         const repeatEl=document.createElement('span');
         if(todo.repeat){repeatEl.className='repeat-badge';repeatEl.textContent=todo.repeat==='daily'?'↻매일':todo.repeat==='weekly'?'↻매주':'↻매월';}
 
+        // 알람 배지
+        const alarmEl=document.createElement('span');
+        if(todo.alarmTime&&!todo.done){alarmEl.className='alarm-badge';alarmEl.textContent=`🔔${todo.alarmTime}`;}
+
         const expBtn=document.createElement('button');expBtn.className='expand-btn'+(isExp?' open':'');
         expBtn.textContent=subtasks.length?`▶ ${subDone}/${subtasks.length}`:'▶';expBtn.title='펼치기';
         expBtn.addEventListener('click',()=>{expanded.has(todo.id)?expanded.delete(todo.id):expanded.add(todo.id);render();});
@@ -1006,7 +1221,7 @@ ONLY valid JSON: {"tags":[]} 할 일: "${todo.text}"`);
         const del=document.createElement('button');del.className='hov-btn del';del.textContent='×';del.title='삭제';
         del.addEventListener('click',()=>{todos=todos.filter(x=>x.id!==todo.id);save();render();});
         hov.append(aiBtn,pomoBtn,del);
-        main.append(handle,cbWrap,span,tagsEl,dueEl,repeatEl,expBtn,hov);
+        main.append(handle,cbWrap,span,tagsEl,dueEl,repeatEl,alarmEl,expBtn,hov);
         li.appendChild(main);
 
         if(isExp){
@@ -1035,7 +1250,7 @@ ONLY valid JSON: {"tags":[]} 할 일: "${todo.text}"`);
           addBtn2.addEventListener('click',doAdd);addInp.addEventListener('keydown',e=>{if(e.key==='Enter')doAdd();});
           addRow.append(addInp,addBtn2);subSec.appendChild(addRow);sec.appendChild(subSec);
 
-          // 메모 & 링크
+          // 메모 & 링크 & 알람
           const det=document.createElement('div');det.className='detail-section';
 
           const noteLbl=document.createElement('span');noteLbl.className='detail-label';noteLbl.textContent='메모';det.appendChild(noteLbl);
@@ -1064,6 +1279,18 @@ ONLY valid JSON: {"tags":[]} 할 일: "${todo.text}"`);
           };
           linkAdd.addEventListener('click',doLinkAdd);linkInp.addEventListener('keydown',e=>{if(e.key==='Enter')doLinkAdd();});
           linkAddRow.append(linkInp,linkAdd);det.appendChild(linkAddRow);
+
+          // 알람 편집
+          const alarmRowEl=document.createElement('div');alarmRowEl.className='alarm-row';
+          const alarmLbl=document.createElement('span');alarmLbl.className='detail-label';alarmLbl.style.marginBottom='0';alarmLbl.textContent='🔔 알람';
+          const alarmTimeEl=document.createElement('input');alarmTimeEl.type='time';alarmTimeEl.className='alarm-time-input';
+          alarmTimeEl.value=todo.alarmTime||'';
+          alarmTimeEl.addEventListener('change',()=>{todo.alarmTime=alarmTimeEl.value||null;save();render();expanded.add(todo.id);showToast(todo.alarmTime?`🔔 알람 설정: ${todo.alarmTime}`:'알람이 해제됐어요');});
+          const alarmClearBtn=document.createElement('button');alarmClearBtn.className='alarm-clear-btn';alarmClearBtn.textContent='해제';
+          alarmClearBtn.addEventListener('click',()=>{todo.alarmTime=null;save();render();expanded.add(todo.id);showToast('알람이 해제됐어요');});
+          alarmRowEl.append(alarmLbl,alarmTimeEl,alarmClearBtn);
+          det.appendChild(alarmRowEl);
+
           sec.appendChild(det);
           li.appendChild(sec);
         }
@@ -1086,10 +1313,12 @@ ONLY valid JSON: {"tags":[]} 할 일: "${todo.text}"`);
     function addTodo(){
       const text=document.getElementById('new-todo').value.trim();if(!text)return;
       const due=document.getElementById('due-input').value;
-      const newTodo={id:Date.now(),text,done:false,dueDate:due||null,tags:[...selectedTags],subtasks:[],repeat:selectedRepeat,note:'',links:[]};
+      const alarm=document.getElementById('alarm-input').value;
+      const newTodo={id:Date.now(),text,done:false,dueDate:due||null,tags:[...selectedTags],subtasks:[],repeat:selectedRepeat,note:'',links:[],alarmTime:alarm||null};
       todos.unshift(newTodo);
       document.getElementById('new-todo').value='';
       document.getElementById('due-input').value='';
+      document.getElementById('alarm-input').value='';
       selectedTags=[];selectedRepeat=null;
       renderTagPills();renderRepeatPills();save();render();
       if(!newTodo.tags.length)autoTag(newTodo);
@@ -1105,6 +1334,7 @@ ONLY valid JSON: {"tags":[]} 할 일: "${todo.text}"`);
     // ── 초기화 ──
     document.getElementById('header-date').textContent=new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
     applyTheme();renderTagPills();renderRepeatPills();render();
+    checkAlarms();
   </script>
 </body>
 </html>
